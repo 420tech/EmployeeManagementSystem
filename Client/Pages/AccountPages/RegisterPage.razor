@@ -1,0 +1,55 @@
+﻿@page "/identity/account/register"
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <EditForm Enhance Model="User" OnValidSubmit="HandleRegistration">
+                 <DataAnnotationsValidator />
+                 <ValidationSummary />
+                 <div class="card">
+                     <div class="card-header">Fill this form to Register</div>
+                     <div class="card-body">
+                         <div class="form-group">
+                             <label class="form-label">Full Name</label>
+                             <InputText @bind-Value="User.FullName" class="form-control" />
+                         </div>
+                         <div class="form-group mt-3">
+                             <label class="form-label">Email</label>
+                             <InputText class="form-control" @bind-Value="User.Email" />
+                         </div>
+                         <div class="form-group mt-3">
+                             <label class="form-label">Password</label>
+                             <input type="password" @bind="User.Password" class="form-control"></input>
+                         </div>
+                         <div class="form-group mt-3">
+                             <label class="form-label">Confirm Password</label>
+                             <input type="password" @bind="User.ConfirmPassword" class="form-control"></input>
+                         </div>
+                         <div class="form-group mt-3">
+                             <button type="submit" class="btn btn-outline-primary float-end">Register</button>
+                         </div>
+                     </div>
+                 </div>
+             </EditForm>
+         </div>
+     </div>
+ </div>
+
+ @code {
+    Register User = new();
+
+
+    async Task HandleRegistration()
+    {
+        var result = await accountService.CreateAsync(User);
+        if (result.Flag)
+        {
+            User = new();
+        }
+        else
+        {
+            
+        }
+    }
+    
+
+}
